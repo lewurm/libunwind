@@ -31,6 +31,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include "map_info.h"
 #include "os-linux.h"
 
+static struct unw_addr_space local_as;
+
 /* ANDROID support update. */
 HIDDEN struct map_info *
 map_create_list (int map_create_type, pid_t pid)
@@ -40,7 +42,6 @@ map_create_list (int map_create_type, pid_t pid)
   struct map_info *map_list = NULL;
   struct map_info *cur_map;
   unw_addr_space_t as = NULL;
-  struct unw_addr_space local_as;
   void* as_arg = NULL;
 
   if (maps_init (&mi, pid) < 0)
